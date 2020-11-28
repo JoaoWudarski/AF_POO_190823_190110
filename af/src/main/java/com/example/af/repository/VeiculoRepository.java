@@ -1,5 +1,6 @@
 package com.example.af.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class VeiculoRepository {
 
-    private List<Veiculo> veiculos;
-    private int nextcode = 0;
+    private ArrayList<Veiculo> veiculos = new ArrayList<Veiculo>();
+    private int nextcode = 1;
 
     public List<Veiculo> getAllVeiculos() {
         return veiculos;

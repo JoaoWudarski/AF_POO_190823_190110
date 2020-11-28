@@ -6,8 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.example.af.dto.ClienteDTO;
+import com.example.af.dto.ReservaDTO;
 import com.example.af.model.Cliente;
+import com.example.af.model.Reserva;
 import com.example.af.service.ClienteService;
+import com.example.af.service.ReservaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +31,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteService clienteServico;
+
+    @Autowired
+    private ReservaService reservaService;
 
     @GetMapping
     public List<Cliente> getClientes(){
@@ -63,6 +69,23 @@ public class ClienteController {
         cliente.setCodigo(codigo);
         cliente = clienteServico.update(cliente);
         return ResponseEntity.ok(cliente);
-    } 
+    }
     
+    @GetMapping("/{codigo}/reservas")
+    public List<Reserva> getReservaCliente (@PathVariable int codigo){
+        Cliente cliente = clienteServico.getClienteByCodigo(codigo);
+        return cliente.getReservas();
+    }
+
+    @PostMapping("/{codigoCliente}/veiculos/{codigoVeiculo}")
+    public ResponseEntity<Reserva> saveReserva(@PathVariable int codigoCliente, 
+    @PathVariable int codigoVeiculo, @RequestBody ReservaDTO novaReserva,
+    HttpServletRequest request, UriComponentsBuilder builder) {
+
+        Reserva reserva = reservaService.save(codigoCliente, codigoVeiculo, novaReserva);
+        UriComponents uriComponents = builder.path(request.getRequestURI() + "/" + 
+        reserva.getCodigo()).build();
+        return ResponseEntity.created(uriComponents.toUri()).build();
+    }
+
 }

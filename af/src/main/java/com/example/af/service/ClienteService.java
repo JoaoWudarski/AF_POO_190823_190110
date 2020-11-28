@@ -20,8 +20,9 @@ public class ClienteService {
 
     public Cliente fromDTO(ClienteDTO dto){
         Cliente cliente = new Cliente();
-        cliente.setEndereco(dto.getEndereco());
         cliente.setNome(dto.getNome());
+        cliente.setEndereco(dto.getEndereco());
+        cliente.setCpf(dto.getCpf());
         return cliente;
     }
 

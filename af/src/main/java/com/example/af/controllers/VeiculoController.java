@@ -41,10 +41,10 @@ public class VeiculoController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> save(@Valid @RequestBody VeiculoDTO novoVeiculo, HttpServletRequest request,
+    public ResponseEntity<Void> save(@Valid @RequestBody Veiculo novoVeiculo, HttpServletRequest request,
     UriComponentsBuilder builder){
 
-        Veiculo aux = veiculoServico.save(veiculoServico.fromDTO(novoVeiculo));
+        Veiculo aux = veiculoServico.save(novoVeiculo);
 
         UriComponents uriComponents = builder.path(request.getRequestURI()+ "/" + aux.getCodigo()).build();
         return ResponseEntity.created(uriComponents.toUri()).build();

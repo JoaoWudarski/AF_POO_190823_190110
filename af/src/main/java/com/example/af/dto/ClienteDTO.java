@@ -1,9 +1,20 @@
 package com.example.af.dto;
 
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.validator.constraints.Length;
+
 public class ClienteDTO {
     
+    @NotBlank(message = "Nome é obrigatorio!")
+    @Length(min=4,max = 200, message = "Nome mínimo de 4 e o máximo de 200 caracteres!")
     private String nome;
+
+    @NotBlank(message = "Endereço é obrigatorio!")
+    @Length(min=4,max = 200, message = "Endereço mínimo de 4 e o máximo de 200 caracteres!")
     private String endereco;
+
+    private int cpf;
 
     public String getNome() {
         return nome;
@@ -19,6 +30,14 @@ public class ClienteDTO {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public int getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
     }
     
 }

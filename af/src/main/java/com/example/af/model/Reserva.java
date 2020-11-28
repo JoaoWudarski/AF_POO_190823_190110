@@ -1,20 +1,19 @@
 package com.example.af.model;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import org.joda.time.DateTime;
 
 public class Reserva {
     private int codigo;
     private double preco;
+    private Cliente cliente;
+    private Veiculo veiculo;
 
     @JsonFormat( pattern = "dd/MM/yyyy")
-    private LocalDateTime dataInicio;
+    private DateTime dataInicio;
     @JsonFormat( pattern = "dd/MM/yyyy")
-    private LocalDateTime dataFim;
-
-    private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
+    private DateTime dataFim;
 
     public int getCodigo() {
         return codigo;
@@ -32,29 +31,60 @@ public class Reserva {
         this.preco = preco;
     }
 
-    public LocalDateTime getDataInicio() {
+    public DateTime getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(LocalDateTime dataInicio) {
+    public void setDataInicio(DateTime dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public LocalDateTime getDataFim() {
+    public DateTime getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(LocalDateTime dataFim) {
+    public void setDataFim(DateTime dataFim) {
         this.dataFim = dataFim;
     }
 
-    public ArrayList<Reserva> getReservas() {
-        return reservas;
+
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setReservas(ArrayList<Reserva> reservas) {
-        this.reservas = reservas;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Veiculo getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(Veiculo veiculo) {
+        this.veiculo = veiculo;
     }
     
+    
+    public Reserva(DateTime dataInicio, DateTime dataFim, Cliente cliente, Veiculo veiculo){
+        this.dataInicio = dataInicio;
+        this.dataFim = dataFim;
+        this.veiculo = veiculo;
+        this.cliente = cliente;
+        this.preco = calcularPreco();
+    }
+    
+    public double calcularPreco(){
+        long temp = dataFim.getMillis() - dataInicio.getMillis();
+        
+        double preco = temp/86400000;
+        preco *= getVeiculo().getDiaria();
+        
+        return preco; 
+    }
+
+    public Reserva(){}
+
+    
+
 
 }

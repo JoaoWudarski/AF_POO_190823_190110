@@ -1,12 +1,17 @@
 package com.example.af.model;
 
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Veiculo {
 
     private int codigo;
     private String modelo;
     private double diaria;
-
+    
+    @JsonIgnore
+    private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
 
     public int getCodigo() {
         return codigo;
@@ -32,6 +37,21 @@ public class Veiculo {
         this.diaria = diaria;
     }
 
+    public ArrayList<Reserva> getReservas() {
+        return reservas;
+    }
+
+    public void setReservas(ArrayList<Reserva> reservas) {
+        this.reservas = reservas;
+    }
+
+    public boolean addReserva(Reserva reserva) {
+        return reservas.add(reserva);
+    }
+
+    public boolean removeReserva(Reserva reserva) {
+        return reservas.remove(reserva);
+    }
 
     
 }

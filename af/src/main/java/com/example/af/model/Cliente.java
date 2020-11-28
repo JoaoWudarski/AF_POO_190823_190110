@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Cliente {
     
     private int codigo;
@@ -14,6 +16,7 @@ public class Cliente {
     
     private int cpf;
 
+    @JsonIgnore
     private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
 
 
@@ -62,5 +65,12 @@ public class Cliente {
         this.reservas = reservas;
     }
 
+    public boolean addReserva(Reserva reserva) {
+        return reservas.add(reserva);
+    }
+
+    public boolean removeReserva(Reserva reserva) {
+        return reservas.remove(reserva);
+    }
     
 }
