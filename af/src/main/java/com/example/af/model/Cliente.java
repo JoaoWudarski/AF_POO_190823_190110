@@ -14,7 +14,7 @@ public class Cliente {
     @Size(min = 4, max = 200, message = "Endereço do cliente deve ter entre 4 e 200 caracteres")
     private String endereco;
     
-    private int cpf;
+    private String cpf;
 
     @JsonIgnore
     private ArrayList<Reserva> reservas = new ArrayList<Reserva>();
@@ -44,11 +44,11 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
 

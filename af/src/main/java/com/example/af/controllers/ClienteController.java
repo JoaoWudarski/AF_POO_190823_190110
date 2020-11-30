@@ -79,7 +79,7 @@ public class ClienteController {
 
     @PostMapping("/{codigoCliente}/veiculos/{codigoVeiculo}")
     public ResponseEntity<Reserva> saveReserva(@PathVariable int codigoCliente, 
-    @PathVariable int codigoVeiculo, @RequestBody ReservaDTO novaReserva,
+    @PathVariable int codigoVeiculo, @Valid @RequestBody ReservaDTO novaReserva,
     HttpServletRequest request, UriComponentsBuilder builder) {
 
         Reserva reserva = reservaService.save(codigoCliente, codigoVeiculo, novaReserva);

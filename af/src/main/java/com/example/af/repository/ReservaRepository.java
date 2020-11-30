@@ -27,7 +27,7 @@ public class ReservaRepository {
         ArrayList<Reserva> reservasVeiculo = veiculo.getReservas();
         if(!reservasVeiculo.isEmpty()){
             for(Reserva aux : reservasVeiculo){
-                if(!aux.getDataFim().isBefore(reserva.getDataInicio()))
+                if(aux.getDataFim().isAfter(reserva.getDataInicio()))
                     return Optional.empty();
             }
         }

@@ -1,8 +1,10 @@
 package com.example.af.model;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import org.joda.time.DateTime;
 
 public class Reserva {
     private int codigo;
@@ -11,9 +13,9 @@ public class Reserva {
     private Veiculo veiculo;
 
     @JsonFormat( pattern = "dd/MM/yyyy")
-    private DateTime dataInicio;
+    private LocalDate dataInicio;
     @JsonFormat( pattern = "dd/MM/yyyy")
-    private DateTime dataFim;
+    private LocalDate dataFim;
 
     public int getCodigo() {
         return codigo;
@@ -31,19 +33,19 @@ public class Reserva {
         this.preco = preco;
     }
 
-    public DateTime getDataInicio() {
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(DateTime dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public DateTime getDataFim() {
+    public LocalDate getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(DateTime dataFim) {
+    public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
     }
 
@@ -65,7 +67,7 @@ public class Reserva {
     }
     
     
-    public Reserva(DateTime dataInicio, DateTime dataFim, Cliente cliente, Veiculo veiculo){
+    public Reserva(LocalDate dataInicio, LocalDate dataFim, Cliente cliente, Veiculo veiculo){
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.veiculo = veiculo;
@@ -74,17 +76,12 @@ public class Reserva {
     }
     
     public double calcularPreco(){
-        long temp = dataFim.getMillis() - dataInicio.getMillis();
-        
-        double preco = temp/86400000;
-        preco *= getVeiculo().getDiaria();
+        long dias = dataInicio.until(dataFim, ChronoUnit.DAYS);
+
+        preco = getVeiculo().getDiaria() * dias;
         
         return preco; 
     }
 
     public Reserva(){}
-
-    
-
-
 }

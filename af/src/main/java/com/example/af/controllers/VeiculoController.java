@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import com.example.af.dto.VeiculoDTO;
+import com.example.af.model.Reserva;
 import com.example.af.model.Veiculo;
 import com.example.af.service.VeiculoService;
 
@@ -65,4 +66,9 @@ public class VeiculoController {
         return ResponseEntity.ok(veiculo);
     } 
     
+    @GetMapping("/{codigo}/reservas")
+    public List<Reserva> getReservaCliente (@PathVariable int codigo){
+        Veiculo veiculo = veiculoServico.getVeiculoBycodigo(codigo);
+        return veiculo.getReservas();
+    }
 }

@@ -42,7 +42,13 @@ public class ClienteService {
     }
 
     public void removeByCodigo(int codigo){
-        repositorio.remove(getClienteByCodigo(codigo));
+        Cliente cliente = getClienteByCodigo(codigo);
+        
+        if(cliente.getReservas() == null)
+            repositorio.remove(cliente);
+        else
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Não é possível deletar o cliente... Você não quer que ele roube seu carro, não é mesmo???"));    
+        
     }
 
     public Cliente update(Cliente cliente){

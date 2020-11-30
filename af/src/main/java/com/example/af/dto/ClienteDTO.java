@@ -14,7 +14,7 @@ public class ClienteDTO {
     @Length(min=4,max = 200, message = "Endereço mínimo de 4 e o máximo de 200 caracteres!")
     private String endereco;
 
-    private int cpf;
+    private String cpf;
 
     public String getNome() {
         return nome;
@@ -32,11 +32,11 @@ public class ClienteDTO {
         this.endereco = endereco;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 
-    public void setCpf(int cpf) {
+    public void setCpf(String cpf) {
         this.cpf = cpf;
     }
     

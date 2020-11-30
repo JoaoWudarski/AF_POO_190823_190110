@@ -42,7 +42,7 @@ public class ClienteRepository {
         Cliente aux = getClienteByCodigo(cliente.getCodigo()).get();
 
         if(aux != null){
-            aux.setNome(cliente.getEndereco());
+            aux.setEndereco(cliente.getEndereco());
             aux.setNome(cliente.getNome());
         }
 

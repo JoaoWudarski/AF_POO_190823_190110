@@ -42,12 +42,18 @@ public class VeiculoService {
     }
 
     public void removeByCodigo(int codigo){
-        repositorio.remove(getVeiculoBycodigo(codigo));
+        Veiculo veiculo = getVeiculoBycodigo(codigo);
+        
+        if(veiculo.getReservas() == null)
+            repositorio.remove(veiculo);
+        else
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Não é possível deletar o veiculo com ele por ai"));    
+        
     }
 
     public Veiculo update( Veiculo veiculo){
         getVeiculoBycodigo(veiculo.getCodigo());
         return repositorio.update(veiculo);
     }
-    
+     
 }

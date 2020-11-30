@@ -1,44 +1,64 @@
 package com.example.af.dto;
 
-
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.util.Optional;
+
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
 
 import com.example.af.model.Cliente;
 import com.example.af.model.Reserva;
 import com.example.af.model.Veiculo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import org.joda.time.DateTime;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
+
 
 
 public class ReservaDTO {
+
+    @NotNull
+    @Future(message = "Data de Incio deve ser após a data atual")
     @JsonFormat( pattern = "dd/MM/yyyy")
-    private DateTime dataInicio;
+    private LocalDate dataInicio;
+    
+    @NotNull
+    @Future(message = "Data de Incio deve ser após a data atual")
     @JsonFormat( pattern = "dd/MM/yyyy")
-    private DateTime dataFim;
+    private LocalDate dataFim;
+    
     private Cliente cliente;
     private Veiculo veiculo;
 
-    public DateTime getDataInicio() {
+    public LocalDate getDataInicio() {
         return dataInicio;
     }
 
-    public void setDataInicio(DateTime dataInicio) {
+    public void setDataInicio(LocalDate dataInicio) {
         this.dataInicio = dataInicio;
     }
 
-    public DateTime getDataFim() {
+    public LocalDate getDataFim() {
         return dataFim;
     }
 
-    public void setDataFim(DateTime dataFim) {
+    public void setDataFim(LocalDate dataFim) {
         this.dataFim = dataFim;
     }
 
     public Optional<Reserva> criarReserva(){
-        if(dataFim. (dataInicio) ) {
+        if(dataFim.isBefore(dataInicio)) {
             return Optional.empty();
         }
+
+        if(dataFim.getDayOfWeek().equals(DayOfWeek.SUNDAY))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Data de entrega não pode ser em um domingo, Graças a deus"));
+        if(dataInicio.getDayOfWeek().equals(DayOfWeek.SUNDAY))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("Data de Inicio não pode ser em um domingo, Graças a deus"));
+
+
         Reserva reserva = new Reserva(dataInicio, dataFim, cliente, veiculo);
         return Optional.of(reserva);
     }
