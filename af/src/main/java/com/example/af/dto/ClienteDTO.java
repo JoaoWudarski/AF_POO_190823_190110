@@ -3,6 +3,7 @@ package com.example.af.dto;
 import javax.validation.constraints.NotBlank;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 public class ClienteDTO {
     
@@ -14,6 +15,8 @@ public class ClienteDTO {
     @Length(min=4,max = 200, message = "Endereço mínimo de 4 e o máximo de 200 caracteres!")
     private String endereco;
 
+    @NotBlank(message = "CPF é obrigatorio!")
+    @CPF
     private String cpf;
 
     public String getNome() {

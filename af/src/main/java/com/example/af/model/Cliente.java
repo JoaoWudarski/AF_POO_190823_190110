@@ -2,18 +2,27 @@ package com.example.af.model;
 
 import java.util.ArrayList;
 
-import javax.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 public class Cliente {
     
     private int codigo;
 
+    @NotBlank(message = "Nome é obrigatorio!")
+    @Length(min=4,max = 200, message = "Nome mínimo de 4 e o máximo de 200 caracteres!")
     private String nome;
-    @Size(min = 4, max = 200, message = "Endereço do cliente deve ter entre 4 e 200 caracteres")
+
+    @NotBlank(message = "Endereço é obrigatorio!")
+    @Length(min=4,max = 200, message = "Endereço mínimo de 4 e o máximo de 200 caracteres!")
     private String endereco;
-    
+
+    @NotBlank(message = "CPF é obrigatorio!")
+    @CPF
     private String cpf;
 
     @JsonIgnore
